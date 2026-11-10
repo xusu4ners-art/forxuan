@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#17151a">
+<title>For Xu — One Last Letter</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap');
+*{box-sizing:border-box}
+:root{--paper:#f8f1e9;--ink:#302a2b;--rose:#b9878c}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 15%,#40333d,#211d25 48%,#121116);color:#eee6e2;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:5;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+.stars{position:fixed;inset:0;pointer-events:none}
+.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#f6dfe1;opacity:0;animation:twinkle 4s infinite ease-in-out}
+@keyframes twinkle{50%{opacity:.65;transform:scale(1.4)}}
+main{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:55px 16px 65px;position:relative}
+.intro{text-align:center;margin-bottom:28px}
+.eyebrow{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#c39ba0;margin-bottom:12px}
+h1{font:500 clamp(38px,7vw,58px)/1 'Cormorant Garamond',serif;margin:0;color:#f3e8e5}
+.subtitle{font:italic 17px 'Cormorant Garamond',serif;color:#b9aeb2;margin-top:12px}
+.scene{width:min(440px,94vw);height:300px;position:relative;perspective:1100px;transition:height 1s}
+.envelope-wrap{position:absolute;inset:30px 0 0;cursor:pointer;filter:drop-shadow(0 24px 28px #0008);transition:transform .8s}
+.envelope-wrap:hover{transform:translateY(-5px)}
+.envelope{position:absolute;left:5%;right:5%;bottom:0;height:200px;background:#c5a9a1;border-radius:4px 4px 8px 8px;overflow:visible}
+.envelope:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#d8beb5,#b89591);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);z-index:4}
+.flap{position:absolute;left:0;right:0;top:0;height:118px;background:#dfc7bd;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1s cubic-bezier(.2,.75,.2,1);z-index:6;backface-visibility:hidden}
+.letter-peek{position:absolute;left:10%;width:80%;height:175px;bottom:14px;background:var(--paper);z-index:2;display:flex;justify-content:center;padding-top:22px;color:#8e6b70;font:italic 24px 'Cormorant Garamond',serif;transition:transform 1.2s cubic-bezier(.2,.75,.2,1)}
+.front{position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(35deg,transparent 49.5%,#a98583 50%,transparent 50.5%),linear-gradient(-35deg,transparent 49.5%,#b18e89 50%,transparent 50.5%)}
+.seal{position:absolute;z-index:7;left:50%;top:48%;transform:translate(-50%,-50%);width:49px;height:49px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d9aeb0,#9d626b 70%);box-shadow:0 3px 9px #79545a88;display:grid;place-items:center;color:#f5e5e2;font:23px 'Cormorant Garamond',serif;transition:.5s}
+.hint{position:absolute;bottom:-40px;left:0;right:0;text-align:center;color:#b7a8ae;font-size:10px;letter-spacing:.2em;text-transform:uppercase;animation:pulse 2.5s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.scene.open .flap{transform:rotateX(180deg);z-index:1}
+.scene.open .letter-peek{transform:translateY(-165px);transition-delay:.3s}
+.scene.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+.scene.open .envelope-wrap{transform:translateY(25px);opacity:.45}
+.scene.open{height:135px}
+.letter{width:min(780px,95vw);background:var(--paper);color:var(--ink);padding:clamp(28px,6vw,68px) clamp(22px,7vw,76px);box-shadow:0 25px 80px #0007;position:relative;opacity:0;transform:translateY(50px) scale(.98);pointer-events:none;max-height:0;overflow:hidden;transition:opacity 1s,transform 1s,max-height 1.2s}
+.letter:before{content:"";position:absolute;inset:12px;border:1px solid #d9c9c0;pointer-events:none}
+.letter.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;max-height:30000px;margin-top:15px}
+.letter-head{text-align:center;margin-bottom:36px}
+.letter-head small{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:#a17c80}
+.letter-head h2{font:500 clamp(34px,5vw,46px)/1.05 'Cormorant Garamond',serif;margin:11px 0 16px;color:#5b454b}
+.rule{width:48px;height:1px;background:#bd9998;margin:auto}
+.letter p{font:17.5px/1.9 'Cormorant Garamond',serif;margin:0 0 23px;white-space:pre-wrap}
+.signature{font:italic 25px 'Cormorant Garamond',serif;color:#86646a;text-align:right;margin-top:34px}
+.endnote{text-align:center;margin-top:27px;color:#aa999e;font:italic 14px 'Cormorant Garamond',serif}
+.controls{display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+button{border:1px solid #8c737b;background:transparent;color:#e8dadd;padding:11px 18px;border-radius:30px;font:10px 'DM Sans',sans-serif;letter-spacing:.13em;text-transform:uppercase;cursor:pointer}
+button:hover{background:#8c737b;color:white}
+.footer{margin-top:32px;color:#756a72;font-size:9px;letter-spacing:.2em;text-transform:uppercase;text-align:center}
+@media(max-width:520px){main{padding-top:38px}.scene{height:270px}.envelope{height:178px}.flap{height:105px}.letter-peek{height:153px}.scene.open{height:125px}.letter p{font-size:16.5px;line-height:1.85}.letter.show{max-height:40000px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="stars" id="stars"></div>
+<main>
+<header class="intro">
+  <div class="eyebrow">a letter i couldn't say out loud</div>
+  <h1>For Xu</h1>
+  <div class="subtitle">some goodbyes take a little longer to write.</div>
+</header>
+<section class="scene" id="scene">
+  <div class="envelope-wrap" id="envelope" role="button" tabindex="0" aria-label="Open the letter">
+    <div class="letter-peek">for you, xu</div>
+    <div class="envelope"><div class="flap"></div><div class="front"></div><div class="seal">x</div></div>
+    <div class="hint" id="hint">tap to open the letter</div>
+  </div>
+</section>
+<article class="letter" id="letter">
+  <header class="letter-head"><small>one last letter</small><h2>Dear Xu,</h2><div class="rule"></div></header>
+
+  <p>Xu, first of all, aku bangga banget sama kamu. Kamu yang sekarang bener-bener buat aku ngerasa bukan Xuan yang lemah lagi, look at how far you've come. Kamu udah berjuang banyak buat hidup kamu dan posisi kamu, dan aku selalu bangga sama kamu, semoga hal-hal baik terus dateng buat kamu ya?</p>
+
+  <p>aku mau bilang makasih banyak xu buat moment yang udah kita laluin bareng-bareng selama ini. Udah banyak banget masa yang kita laluin berdua, kamu bener-bener jadi satu-satunya tempat aku buat berekspresi, satu-satunya tempat buat jadi diri aku sendiri tanpa harus jadi orang lain. Yang artinya kamu punya tempat yang bener-bener special di hidup aku yang orang lain gapunya.</p>
+
+  <p>aku bakal kangen banget sama kamu, kangen ngobrol bareng, cerita hal random dan konyol bareng, kangen dicariin kamu,  kangen main bareng, kangen Jayden/Dudunk aku, kangen main platooo sama kamu, kangen di gendong jugaa di robloxx ahahah, kangen nonton bareng juga di rave sama kamu, kangen ean sama erik, papa mama juga, kangen sayangkuu jugaa si cmoky dan bebe yang udah besar, bebe jagain xuxu aku yaaa, huaghhh aku bener-bener bisa gilaa kalau mikirin itu semua. Andai aku ga iseng chat kamu waktu itu (as a Vicky), kayanya sekarang aku gabakal seberat ini buat ngelepas kamu, xu.</p>
+
+  <p>xu, kamu mungkin mikir setelah aku putus sama kamu, aku beneran udah move on? pfft gotchaa! keren kan akting akuu? yah namanya juga yuyud yang gabisa jujur sama perasaanya sendiri. Xu, aku gapernah hapus/lupain hal-hal kecil tentang kamu sama sekali, even now. aku gapernah bener-bener hapus every single thing yang udah pernah kita lakuin bareng-bareng. Dan ini mungkin jadi hal terberat buat aku kedepannya, doain aku bisa juga ya kaya kamu? pelan-pelan aku bisa lupain semuanya tentang kita, tapi belum sekarang.</p>
+
+  <p>tapi setiap hal yang kita lakuin pasti ada hal yang harus kita bayar kan? mungkin ini waktunya buat aku, xu. Izinin aku buat terakhir kalinya jujur tentang perasaan aku ya sayang?</p>
+
+  <p>xu, aku udah bener bener pikirin ini sebelumnya, especially about wanting to try again, work on myself, change for the better, and stay with you.</p>
+
+  <p>kalau di pikir pikir lagi, aku egois dan gatau malu ya? i mean, i did something that genuinely hurt you back then. I ended our relationship at a time when you needed me the most, disaat kamu yang hancur dengan kondisi hidup kamu, disaat kamu lagi berjuang untuk tetap kuat dan hidup disana, disaat kamu berusaha buat tegar karna ditinggal mama.</p>
+
+  <p>But where was i, xu? i wasn't there for you during any of those moments. Instead, i walked away because of my own selfishness and because i couldn't bring myself to trust you. malu maluin banget ga si aku? disaat aku bilang aku sudah bener bener final dengan keputusan aku kalo aku beneran mau udahin hubungan kita, and now here I am, practically begging you to make things the way they used to be again.</p>
+
+  <p>I'm such a fool. Maybe you could tell me to just forget about what happened, but how could i, xu? look at how much kamu udah survive buat laluin semua masa masa berat tanpa aku. Look at how far you've come, how you've managed to heal, both physically and mentally. Look at how you've learned to deal with your feelings and accept that I'm no longer someone you can hold on to or keep chasing. Dan sekarang aku dateng lagi ke kamu buat minta semuanya kaya dulu lagi? i'm so sick of myself.</p>
+
+  <p>I know that i genuinely DO want to change for you, and i really mean that. But how could i, xu? pandangan kamu ke aku pasti udah beda sekarang, aku yakin mau kita bareng pun masih ada luka dan perasaan gaadil buat kamu tentang aku. and i know how hurt that must have been for u. Yang dulu kamu bener bener butuh aku, cari aku, karna memang kamu jadiin aku sebagai rumah kamu. dan sekarang? jadi kaya penuh sama trauma kamu yang takut ditinggal aku. Dan gimana cara aku buat buktiin semuanya kalo aku bisa berubah, xu? aku gabisa usaha sekeras apapun kalau kamu anggap aku luka, semua hal yang akan aku lakuin cuma bisa kamu anggap pahit nantinya.</p>
+
+  <p>I'm not saying all of this without a reason. Just look at how much better you seem to be doing now, how much you've learned to cope with everything that's happened. I don't want to come back into your life only to disrupt the peace you've worked so hard to find. Could you just let me see this as my punishment, as the consequences of what i've done?</p>
+
+  <p>Should I even ask you again? Should I keep trying, or should I just let you go? aku bingung xu, But the more i think about it, the more i realize that this has become toxic for both of us. I genuinely don't want to disturb your peace anymore, especially because i feel like you don't need me in your life anymore. Everything has changed, Xu. Semuanya udah gabisa kaya dulu lagi, even aku udah ngerasa ga kenal kamu yang sekarang, xu. Mungkin itu juga karna hal bodoh yang udah aku perbuat ke kamu.</p>
+
+  <p>kamu juga kasih pilihan aku buat udahin semuanya kan? aku beneran ga percaya kamu bisa segampang itu buat kasih aku opsi ini, xu. But yaa it means kamu emang udah damai sama perasaan kamu. Aku sedih banget dan aku gamau pilih ini, but what else can i do? Things just can't go back to the way they used to be anymore. Maybe the best thing for both of us is to focus on ourselves for now.</p>
+
+  <p>aku mau belajar buat ikhlas kok, i'm not going to ask you for anything anymore. And even if you asked me to stay, i don't think i could go back to the way things were before. I can't keep going in two different directions at once, Xu. Thank you, and i'm sorry. I'm sorry for reaching out to you about this again, i promise it would be the last. but i've genuinely been struggling with everything surrounding us. I just needed to get all of these thoughts off my chest, and reaching out to you felt like the only way i could do that.</p>
+
+  <p>maaf aku gabisa nepatin janji aku ya? cause the more i try, the more aku ngerasa di jauhin sama kamu. Please ya xu, semoga perginya aku jadi hal baik buat kamu, dan buat hubungan kamu kedepannya sama orang lain, jangan ceritain aku seburuk mantan kamu sebelumnya ya? aku takut kamu lakuin itu dan aku yakin kamu ga sebodoh itu. Aku yakin selama ini kamu pasti ngerasain kasih sayang aku kan xu?</p>
+
+  <p>Aku yakin kamu ga perlu aku ingetin lagi buat makan dan istirahat yang bener lagii, karna emang kamu udah bisa manage itu sekarang, aku bener-bener bangga banget sama kamu, xu. All i could say is wish you nothing but the best yaa</p>
+
+  <p>makasi buat semuanya ya sayang, dan maaf aku udah pernah jadi luka buat kamu. For the last time and i swear to God, aku pamit.</p>
+
+  <div class="signature">— Yuyud</div>
+  <div class="endnote">somewhere, in another version of life, i hope we were kinder to each other.</div>
+</article>
+<div class="controls" id="controls" hidden><button id="closeBtn">Close the letter</button><button id="topBtn">Back to the beginning</button></div>
+<div class="footer">written with love · let this be the last page</div>
+</main>
+<script>
+const stars=document.getElementById('stars');
+for(let i=0;i<48;i++){const s=document.createElement('i');s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*5+'s';s.style.animationDuration=3+Math.random()*4+'s';stars.appendChild(s)}
+const scene=document.getElementById('scene'),envelope=document.getElementById('envelope'),letter=document.getElementById('letter'),controls=document.getElementById('controls'),hint=document.getElementById('hint');
+function openLetter(){if(scene.classList.contains('open'))return;scene.classList.add('open');hint.textContent='';setTimeout(()=>{letter.classList.add('show');controls.hidden=false;setTimeout(()=>letter.scrollIntoView({behavior:'smooth',block:'start'}),250)},850)}
+function closeLetter(){letter.classList.remove('show');controls.hidden=true;scene.classList.remove('open');hint.textContent='tap to open the letter';window.scrollTo({top:0,behavior:'smooth'})}
+envelope.addEventListener('click',openLetter);
+envelope.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLetter()}});
+document.getElementById('closeBtn').addEventListener('click',closeLetter);
+document.getElementById('topBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
